@@ -18,6 +18,7 @@ import { description } from '~/lib/persistence';
 import Cookies from 'js-cookie';
 import { createSampler } from '~/utils/sampler';
 import type { ActionAlert, DeployAlert, SupabaseAlert } from '~/types/actions';
+import { ProjectPlanningService } from '~/lib/services/projectPlanningService';
 
 const { saveAs } = fileSaver;
 
@@ -358,6 +359,12 @@ export class WorkbenchStore {
           const newUnsavedFiles = new Set(this.unsavedFiles.get());
           newUnsavedFiles.delete(filePath);
           this.unsavedFiles.set(newUnsavedFiles);
+        }
+
+        try {
+          await ProjectPlanningService.markTaskComplete(filePath, this.#filesStore);
+        } catch (err) {
+          console.error('Failed to update project plan', err);
         }
       }
 
