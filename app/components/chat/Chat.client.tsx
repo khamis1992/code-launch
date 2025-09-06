@@ -28,6 +28,7 @@ import type { ElementInfo } from '~/components/workbench/Inspector';
 import type { TextUIPart, FileUIPart, Attachment } from '@ai-sdk/ui-utils';
 import { useMCPStore } from '~/lib/stores/mcp';
 import type { LlmErrorAlertType } from '~/types/actions';
+import { ProjectPlanningService } from '~/lib/services/projectPlanningService';
 
 const toastAnimation = cssTransition({
   enter: 'animated fadeInRight',
@@ -209,6 +210,16 @@ export const ChatImpl = memo(
       initialMessages,
       initialInput: Cookies.get(PROMPT_COOKIE_KEY) || '',
     });
+
+    const planGenerated = useRef(false);
+    useEffect(() => {
+      if (messages.length === 1 && !planGenerated.current) {
+        planGenerated.current = true;
+        ProjectPlanningService.generatePlan(messages[0].content as string)
+          .then(({ plan, rules }) => ProjectPlanningService.applyPlan(plan, rules, workbenchStore))
+          .catch((error) => toast.error(error.message));
+      }
+    }, [messages]);
     useEffect(() => {
       const prompt = searchParams.get('prompt');
 
