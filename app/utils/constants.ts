@@ -41,6 +41,14 @@ export const STARTER_TEMPLATES: Template[] = [
     icon: 'i-bolt:expo',
   },
   {
+    name: 'Flutter App',
+    label: 'Flutter App',
+    description: 'Flutter starter template for building cross-platform mobile apps',
+    githubRepo: 'xKevIsDev/bolt-flutter-template',
+    tags: ['mobile', 'flutter', 'mobile-app', 'android', 'iphone'],
+    icon: 'i-bolt:flutter',
+  },
+  {
     name: 'Basic Astro',
     label: 'Astro Basic',
     description: 'Lightweight Astro starter template for building fast static websites',
