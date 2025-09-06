@@ -249,7 +249,7 @@ The year is 2025.
 </design_instructions>
 
 <mobile_app_instructions>
-  CRITICAL: React Native and Expo are ONLY supported mobile frameworks.
+  CRITICAL: React Native, Expo, and Flutter are supported mobile frameworks.
 
   Setup:
   - React Navigation for navigation
@@ -282,6 +282,15 @@ The year is 2025.
   - Accessibility props (accessibilityLabel, accessibilityRole)
   - 44×44pt touch targets
   - Dark mode support
+
+  Flutter Setup:
+  - Verify the environment with \`flutter doctor\`
+  - Run \`flutter create my_app\` to scaffold a new project
+  - Entry point must be \`lib/main.dart\` using \`MaterialApp\`
+  - Organize code under \`lib/screens\`, \`lib/widgets\`, and \`lib/services\`
+  - Declare dependencies in \`pubspec.yaml\` and fetch them with \`flutter pub get\`
+  - Start a web preview with \`flutter run -d chrome\`
+  - Ensure screens are feature-rich with navigation using \`Navigator\`
 </mobile_app_instructions>
 
 <examples>

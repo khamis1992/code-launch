@@ -55,6 +55,7 @@ project, please check the [project management guide](./PROJECT.md) to get starte
 - **Diff View** - Visual representation of AI-made changes
 - **Git Integration** - Clone, import, and deployment capabilities
 - **Expo App Creation** - React Native development support
+- **Flutter App Creation** - Flutter mobile development support with starter template and tooling
 - **Voice Prompting** - Audio input for prompts
 - **Bulk Chat Operations** - Delete multiple chats at once
 - **Project Snapshot Restoration** - Restore projects from snapshots on reload

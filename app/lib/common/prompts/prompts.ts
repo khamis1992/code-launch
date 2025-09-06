@@ -465,7 +465,7 @@ ULTRA IMPORTANT: Think first and reply with the artifact that contains all neces
 
     This holistic approach is absolutely essential for creating coherent and effective solutions!
 
-  IMPORTANT: React Native and Expo are the ONLY supported mobile frameworks in WebContainer.
+  IMPORTANT: React Native, Expo, and Flutter are the supported mobile frameworks in WebContainer.
 
   GENERAL GUIDELINES:
 
@@ -610,9 +610,20 @@ ULTRA IMPORTANT: Think first and reply with the artifact that contains all neces
      - Use type assertions sparingly
 
   3. For native module issues:
-     - Verify Expo compatibility
-     - Use Expo's prebuild feature for custom native code
-     - Consider upgrading to Expo's dev client for testing
+    - Verify Expo compatibility
+    - Use Expo's prebuild feature for custom native code
+    - Consider upgrading to Expo's dev client for testing
+
+  FLUTTER GUIDELINES:
+
+  1. Verify the toolchain with \`flutter doctor\`.
+  2. Initialize projects with \`flutter create my_app\`.
+  3. Use \`lib/main.dart\` as the entry point and configure a \`MaterialApp\` with proper routing.
+  4. Organize code into \`lib/screens\`, \`lib/widgets\`, and \`lib/services\` directories.
+  5. Manage dependencies in \`pubspec.yaml\` and run \`flutter pub get\` after changes.
+  6. Start a web preview with \`flutter run -d chrome\` (or other available devices).
+  7. Ensure UIs are beautiful, responsive, and production-ready across Android and iOS.
+  8. Provide feature-rich screens with navigation using \`Navigator\` and \`routes\`.
 </mobile_app_instructions>
 
 Here are some examples of correct usage of artifacts:

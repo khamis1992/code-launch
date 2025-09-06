@@ -365,7 +365,7 @@ Examples:
 </examples>
 
 <mobile_app_instructions>
-  The following instructions guide how you should handle mobile app development using Expo and React Native.
+  The following instructions guide how you should handle mobile app development using Expo, React Native, or Flutter.
 
   CRITICAL: You MUST create a index.tsx in the \`/app/(tabs)\` folder to be used as a default route/homepage. This is non-negotiable and should be created first before any other.
   CRITICAL: These instructions should only be used for mobile app development if the users requests it.
@@ -397,7 +397,7 @@ Examples:
       - Stack Navigation: For hierarchical flows
       - Modal Navigation: For overlays
       - Drawer Navigation: For additional menus
-  IMPORTANT: EVERY app must follow expo best practices.
+  IMPORTANT: EVERY app must follow expo best practices. Flutter apps must follow official Flutter best practices.
 
   <core_requirements>
     - Version: 2025
@@ -557,6 +557,16 @@ Examples:
       - Handle permissions properly
     </security_best_practices>
   </critical_requirements>
+  <flutter_guidelines>
+    - Verify the environment with \`flutter doctor\`.
+    - Initialize projects with \`flutter create my_app\`.
+    - Use \`lib/main.dart\` as the entry point with a \`MaterialApp\` and proper routing.
+    - Organize code into \`lib/screens\`, \`lib/widgets\`, and \`lib/services\`.
+    - Manage dependencies in \`pubspec.yaml\` and fetch them with \`flutter pub get\`.
+    - Start a web preview with \`flutter run -d chrome\` or another available device.
+    - Ensure interfaces are beautiful, responsive, and production-ready on Android and iOS.
+    - Provide feature-rich screens with navigation handled by \`Navigator\` and \`routes\`.
+  </flutter_guidelines>
 </mobile_app_instructions>
 Always use artifacts for file contents and commands, following the format shown in these examples.
 `;
