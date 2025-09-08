@@ -1,6 +1,6 @@
 # CodeLaunch.ai
 
-[![CodeLaunch.ai: AI-Powered Flutter App Development](./public/images/codelaunch-banner.png)](https://github.com/khamis1992/code-launch)
+![CodeLaunch Banner](./public/images/codelaunch-banner.png)
 
 Welcome to CodeLaunch.ai, your AI-powered companion for building Flutter applications. This open-source project provides a powerful and intuitive environment for generating, testing, and deploying Flutter apps with the help of cutting-edge AI models.
 
@@ -51,4 +51,9 @@ We welcome contributions from the community! If you'd like to contribute, please
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
 
+<div align="center">
+  <img src="./public/images/codelaunch-logo.png" alt="CodeLaunch Logo" width="200"/>
+  <p><strong>CodeLaunch.ai - AI-Powered Flutter Development Platform</strong></p>
+</div>
