@@ -9,8 +9,8 @@ const VercelConnection = React.lazy(() => import('./vercel/VercelConnection'));
 
 // Loading fallback component
 const LoadingFallback = () => (
-  <div className="p-4 bg-bolt-elements-background-depth-1 dark:bg-bolt-elements-background-depth-1 rounded-lg border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor">
-    <div className="flex items-center justify-center gap-2 text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary">
+  <div className="p-4 bg-codelaunch-elements-background-depth-1 dark:bg-codelaunch-elements-background-depth-1 rounded-lg border border-codelaunch-elements-borderColor dark:border-codelaunch-elements-borderColor">
+    <div className="flex items-center justify-center gap-2 text-codelaunch-elements-textSecondary dark:text-codelaunch-elements-textSecondary">
       <div className="i-ph:spinner-gap w-4 h-4 animate-spin" />
       <span>Loading connection...</span>
     </div>
@@ -27,12 +27,12 @@ export default function ConnectionsTab() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="i-ph:plugs-connected w-5 h-5 text-bolt-elements-item-contentAccent dark:text-bolt-elements-item-contentAccent" />
-        <h2 className="text-lg font-medium text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
+        <div className="i-ph:plugs-connected w-5 h-5 text-codelaunch-elements-item-contentAccent dark:text-codelaunch-elements-item-contentAccent" />
+        <h2 className="text-lg font-medium text-codelaunch-elements-textPrimary dark:text-codelaunch-elements-textPrimary">
           Connection Settings
         </h2>
       </motion.div>
-      <p className="text-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary">
+      <p className="text-sm text-codelaunch-elements-textSecondary dark:text-codelaunch-elements-textSecondary">
         Manage your external service connections and integrations
       </p>
 
@@ -52,9 +52,9 @@ export default function ConnectionsTab() {
       </div>
 
       {/* Additional help text */}
-      <div className="text-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-2 p-4 rounded-lg">
+      <div className="text-sm text-codelaunch-elements-textSecondary dark:text-codelaunch-elements-textSecondary bg-codelaunch-elements-background-depth-2 dark:bg-codelaunch-elements-background-depth-2 p-4 rounded-lg">
         <p className="flex items-center gap-1 mb-2">
-          <span className="i-ph:lightbulb w-4 h-4 text-bolt-elements-icon-success dark:text-bolt-elements-icon-success" />
+          <span className="i-ph:lightbulb w-4 h-4 text-codelaunch-elements-icon-success dark:text-codelaunch-elements-icon-success" />
           <span className="font-medium">Troubleshooting Tip:</span>
         </p>
         <p className="mb-2">

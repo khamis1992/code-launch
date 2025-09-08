@@ -1,6 +1,8 @@
 @use 'variables.scss';
 @use 'z-index.scss';
 @use 'animations.scss';
+@use 'codelaunch-design-system.scss';
+@use 'settings.scss';
 @use 'components/terminal.scss';
 @use 'components/resize-handle.scss';
 @use 'components/code.scss';
@@ -11,17 +13,113 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: var(--bolt-elements-bg-depth-1);
+  background-color: var(--codelaunch-elements-bg-depth-1);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 :root {
-  --gradient-opacity: 0.8;
-  --primary-color: rgba(158, 117, 240, var(--gradient-opacity));
-  --secondary-color: rgba(138, 43, 226, var(--gradient-opacity));
-  --accent-color: rgba(128, 59, 239, var(--gradient-opacity));
-  // --primary-color: rgba(147, 112, 219, var(--gradient-opacity));
-  // --secondary-color: rgba(138, 43, 226, var(--gradient-opacity));
-  // --accent-color: rgba(180, 170, 220, var(--gradient-opacity));
+  /* CodeLaunch Professional Colors */
+  --mint: #98FF98;           /* Mint Green */
+  --marine: #1E3A8A;         /* Marine Navy */
+  --sand: #F5F5DC;           /* Light Sand Beige */
+  --ink: #0B1020;            /* Deep Space */
+  
+  /* Legacy gradients for compatibility */
+  --gradient-opacity: 0.9;
+  --primary-color: rgba(152, 255, 152, var(--gradient-opacity));
+  --secondary-color: rgba(30, 58, 138, var(--gradient-opacity));
+  --accent-color: rgba(245, 245, 220, var(--gradient-opacity));
+}
+
+/* Support for CSS custom properties in Tailwind */
+.text-\[--mint\] { color: var(--mint) !important; }
+.bg-\[--mint\] { background-color: var(--mint) !important; }
+.text-\[--marine\] { color: var(--marine) !important; }
+.bg-\[--marine\] { background-color: var(--marine) !important; }
+.text-\[--sand\] { color: var(--sand) !important; }
+.bg-\[--sand\] { background-color: var(--sand) !important; }
+.bg-\[--ink\] { background-color: var(--ink) !important; }
+
+/* CodeLaunch Professional UI Styles */
+
+/* Hero Background Effect */
+.planet-arc {
+  background:
+    radial-gradient(120% 60% at 50% 120%, rgba(255,255,255,.85) 0%, rgba(255,255,255,.35) 25%, rgba(73,156,255,.35) 26%, rgba(73,156,255,.12) 35%, rgba(30,58,138,.0) 60%),
+    radial-gradient(120% 60% at 50% 115%, rgba(30,58,138,.8) 0%, rgba(11,16,32,0) 65%);
+  mask: radial-gradient(140% 70% at 50% 115%, #000 35%, transparent 36%);
+}
+
+/* Projects page ambient background */
+.ambient {
+  background:
+    radial-gradient(120% 60% at 50% 120%, rgba(255,255,255,.7) 0%, rgba(255,255,255,.25) 22%, rgba(73,156,255,.25) 26%, rgba(73,156,255,.1) 34%, rgba(30,58,138,0) 60%),
+    radial-gradient(120% 60% at 50% 115%, rgba(30,58,138,.75) 0%, rgba(11,16,32,0) 65%);
+  mask: radial-gradient(140% 70% at 50% 115%, #000 35%, transparent 36%);
+}
+
+/* Studio Ambient Background */
+.ambient {
+  background:
+    radial-gradient(120% 60% at 50% 120%, rgba(255,255,255,.7) 0%, rgba(255,255,255,.25) 22%, rgba(73,156,255,.25) 26%, rgba(73,156,255,.1) 34%, rgba(30,58,138,0) 60%),
+    radial-gradient(120% 60% at 50% 115%, rgba(30,58,138,.75) 0%, rgba(11,16,32,0) 65%);
+  mask: radial-gradient(140% 70% at 50% 115%, #000 35%, transparent 36%);
+}
+
+/* Panel Components */
+.panel { 
+  background: rgba(255,255,255,.04); 
+  border: 1px solid rgba(255,255,255,.08); 
+}
+
+/* Chip Components */
+.chip { 
+  background: rgba(255,255,255,.06); 
+  border: 1px solid rgba(255,255,255,.08); 
+}
+
+/* Interactive Buttons */
+.btn {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.btn:hover { 
+  transform: translateY(-1px); 
+  box-shadow: 0 10px 24px rgba(0,0,0,.25); 
+}
+
+/* Tab Navigation */
+.tab { 
+  border-bottom: 2px solid transparent; 
+  transition: all .15s ease;
+}
+
+.tab.active { 
+  color: white; 
+  border-color: var(--mint, #98FF98); 
+}
+
+.tab:hover:not(.active) {
+  color: rgba(255,255,255,0.8);
+  border-color: rgba(152,255,152,0.3);
+}
+
+/* Input Dark Style */
+.input-dark {
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* Pricing Card Styles */
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.25);
 }
 
 .modern-scrollbar {
@@ -60,14 +158,14 @@ body {
 .modern-scrollbar-invert {
   &::-webkit-scrollbar-thumb {
     // Override with a contrasting color, e.g., primary text color with transparency
-    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 70%);
+    background-color: color-mix(in srgb, var(--codelaunch-elements-textPrimary), transparent 70%);
   }
 
   &::-webkit-scrollbar-thumb:hover {
     // Darker/more opaque version on hover
-    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%);
+    background-color: color-mix(in srgb, var(--codelaunch-elements-textPrimary), transparent 50%);
   }
 
   // Firefox support for inverted colors
-  scrollbar-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%) transparent;
+  scrollbar-color: color-mix(in srgb, var(--codelaunch-elements-textPrimary), transparent 50%) transparent;
 }

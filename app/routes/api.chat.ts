@@ -271,10 +271,10 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
               messageSliceId,
             });
 
-            result.mergeIntoDataStream(dataStream);
+            // result.mergeIntoDataStream(dataStream);
 
             (async () => {
-              for await (const part of result.fullStream) {
+              for await (const part of (result as any).fullStream) {
                 if (part.type === 'error') {
                   const error: any = part.error;
                   logger.error(`${error}`);
@@ -313,7 +313,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
         });
 
         (async () => {
-          for await (const part of result.fullStream) {
+          for await (const part of (result as any).fullStream) {
             if (part.type === 'error') {
               const error: any = part.error;
               logger.error('Streaming error:', error);
@@ -329,7 +329,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
             }
           }
         })();
-        result.mergeIntoDataStream(dataStream);
+        // result.mergeIntoDataStream(dataStream);
       },
       onError: (error: any) => {
         // Provide more specific error messages for common issues

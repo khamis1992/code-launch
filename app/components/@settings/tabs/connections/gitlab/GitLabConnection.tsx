@@ -99,7 +99,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
       <div className="flex items-center justify-center p-4">
         <div className="flex items-center gap-2">
           <div className="i-ph:spinner-gap-bold animate-spin w-4 h-4" />
-          <span className="text-bolt-elements-textSecondary">Loading...</span>
+          <span className="text-codelaunch-elements-textSecondary">Loading...</span>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
 
   return (
     <motion.div
-      className="bg-bolt-elements-background border border-bolt-elements-borderColor rounded-lg"
+      className="bg-codelaunch-elements-background border border-codelaunch-elements-borderColor rounded-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
@@ -123,21 +123,23 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                 />
               </svg>
             </div>
-            <h3 className="text-base font-medium text-bolt-elements-textPrimary">GitLab Connection</h3>
+            <h3 className="text-base font-medium text-codelaunch-elements-textPrimary">GitLab Connection</h3>
           </div>
         </div>
 
         {!isConnected && (
-          <div className="text-xs text-bolt-elements-textSecondary bg-bolt-elements-background-depth-1 p-3 rounded-lg mb-4">
+          <div className="text-xs text-codelaunch-elements-textSecondary bg-codelaunch-elements-background-depth-1 p-3 rounded-lg mb-4">
             <p className="flex items-center gap-1 mb-1">
-              <span className="i-ph:lightbulb w-3.5 h-3.5 text-bolt-elements-icon-success" />
+              <span className="i-ph:lightbulb w-3.5 h-3.5 text-codelaunch-elements-icon-success" />
               <span className="font-medium">Tip:</span> You can also set the{' '}
-              <code className="px-1 py-0.5 bg-bolt-elements-background-depth-2 rounded">VITE_GITLAB_ACCESS_TOKEN</code>{' '}
+              <code className="px-1 py-0.5 bg-codelaunch-elements-background-depth-2 rounded">
+                VITE_GITLAB_ACCESS_TOKEN
+              </code>{' '}
               environment variable to connect automatically.
             </p>
             <p>
               For self-hosted GitLab instances, also set{' '}
-              <code className="px-1 py-0.5 bg-bolt-elements-background-depth-2 rounded">
+              <code className="px-1 py-0.5 bg-codelaunch-elements-background-depth-2 rounded">
                 VITE_GITLAB_URL=https://your-gitlab-instance.com
               </code>
             </p>
@@ -146,7 +148,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
 
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label className="block text-sm text-bolt-elements-textSecondary mb-2">GitLab URL</label>
+            <label className="block text-sm text-codelaunch-elements-textSecondary mb-2">GitLab URL</label>
             <input
               type="text"
               value={gitlabUrlAtom.get()}
@@ -157,15 +159,15 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                 'w-full px-3 py-2 rounded-lg text-sm',
                 'bg-[#F8F8F8] dark:bg-[#1A1A1A]',
                 'border border-[#E5E5E5] dark:border-[#333333]',
-                'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
-                'focus:outline-none focus:ring-1 focus:ring-bolt-elements-borderColorActive',
+                'text-codelaunch-elements-textPrimary placeholder-codelaunch-elements-textTertiary',
+                'focus:outline-none focus:ring-1 focus:ring-codelaunch-elements-borderColorActive',
                 'disabled:opacity-50',
               )}
             />
           </div>
 
           <div>
-            <label className="block text-sm text-bolt-elements-textSecondary mb-2">Access Token</label>
+            <label className="block text-sm text-codelaunch-elements-textSecondary mb-2">Access Token</label>
             <input
               type="password"
               value={connectionAtom.get().token}
@@ -176,17 +178,17 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                 'w-full px-3 py-2 rounded-lg text-sm',
                 'bg-[#F8F8F8] dark:bg-[#1A1A1A]',
                 'border border-[#E5E5E5] dark:border-[#333333]',
-                'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
-                'focus:outline-none focus:ring-1 focus:ring-bolt-elements-borderColorActive',
+                'text-codelaunch-elements-textPrimary placeholder-codelaunch-elements-textTertiary',
+                'focus:outline-none focus:ring-1 focus:ring-codelaunch-elements-borderColorActive',
                 'disabled:opacity-50',
               )}
             />
-            <div className="mt-2 text-sm text-bolt-elements-textSecondary">
+            <div className="mt-2 text-sm text-codelaunch-elements-textSecondary">
               <a
                 href={`${gitlabUrlAtom.get()}/-/user_settings/personal_access_tokens`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-bolt-elements-borderColorActive hover:underline inline-flex items-center gap-1"
+                className="text-codelaunch-elements-borderColorActive hover:underline inline-flex items-center gap-1"
               >
                 Get your token
                 <div className="i-ph:arrow-square-out w-4 h-4" />
@@ -237,7 +239,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                     <div className="i-ph:plug w-4 h-4" />
                     Disconnect
                   </button>
-                  <span className="text-sm text-bolt-elements-textSecondary flex items-center gap-1">
+                  <span className="text-sm text-codelaunch-elements-textSecondary flex items-center gap-1">
                     <div className="i-ph:check-circle w-4 h-4 text-green-500" />
                     Connected to GitLab
                   </span>
@@ -246,7 +248,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                   <Button
                     variant="outline"
                     onClick={() => window.open(`${gitlabUrlAtom.get()}/dashboard`, '_blank', 'noopener,noreferrer')}
-                    className="flex items-center gap-2 hover:bg-bolt-elements-item-backgroundActive/10 hover:text-bolt-elements-textPrimary dark:hover:text-bolt-elements-textPrimary transition-colors"
+                    className="flex items-center gap-2 hover:bg-codelaunch-elements-item-backgroundActive/10 hover:text-codelaunch-elements-textPrimary dark:hover:text-codelaunch-elements-textPrimary transition-colors"
                   >
                     <div className="i-ph:layout-dashboard w-4 h-4" />
                     Dashboard
@@ -266,7 +268,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                     }}
                     disabled={isFetchingStats}
                     variant="outline"
-                    className="flex items-center gap-2 hover:bg-bolt-elements-item-backgroundActive/10 hover:text-bolt-elements-textPrimary dark:hover:text-bolt-elements-textPrimary transition-colors"
+                    className="flex items-center gap-2 hover:bg-codelaunch-elements-item-backgroundActive/10 hover:text-codelaunch-elements-textPrimary dark:hover:text-codelaunch-elements-textPrimary transition-colors"
                   >
                     {isFetchingStats ? (
                       <>
@@ -287,9 +289,9 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
         </div>
 
         {isConnected.get() && userAtom.get() && stats.get() && (
-          <div className="mt-6 border-t border-bolt-elements-borderColor pt-6">
-            <div className="flex items-center gap-4 p-4 bg-bolt-elements-background-depth-1 rounded-lg mb-4">
-              <div className="w-12 h-12 rounded-full border-2 border-bolt-elements-item-contentAccent flex items-center justify-center bg-bolt-elements-background-depth-2 overflow-hidden">
+          <div className="mt-6 border-t border-codelaunch-elements-borderColor pt-6">
+            <div className="flex items-center gap-4 p-4 bg-codelaunch-elements-background-depth-1 rounded-lg mb-4">
+              <div className="w-12 h-12 rounded-full border-2 border-codelaunch-elements-item-contentAccent flex items-center justify-center bg-codelaunch-elements-background-depth-2 overflow-hidden">
                 {userAtom.get()?.avatar_url &&
                 userAtom.get()?.avatar_url !== 'null' &&
                 userAtom.get()?.avatar_url !== '' ? (
@@ -320,29 +322,29 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full rounded-full bg-bolt-elements-item-contentAccent flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-full h-full rounded-full bg-codelaunch-elements-item-contentAccent flex items-center justify-center text-white font-semibold text-sm">
                     {(userAtom.get()?.name || userAtom.get()?.username || 'U').charAt(0).toUpperCase()}
                   </div>
                 )}
               </div>
               <div>
-                <h4 className="text-sm font-medium text-bolt-elements-textPrimary">
+                <h4 className="text-sm font-medium text-codelaunch-elements-textPrimary">
                   {userAtom.get()?.name || userAtom.get()?.username}
                 </h4>
-                <p className="text-sm text-bolt-elements-textSecondary">{userAtom.get()?.username}</p>
+                <p className="text-sm text-codelaunch-elements-textSecondary">{userAtom.get()?.username}</p>
               </div>
             </div>
 
             <Collapsible open={isStatsExpanded} onOpenChange={setIsStatsExpanded}>
               <CollapsibleTrigger asChild>
-                <div className="flex items-center justify-between p-4 rounded-lg bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive/70 transition-all duration-200">
+                <div className="flex items-center justify-between p-4 rounded-lg bg-codelaunch-elements-background-depth-2 border border-codelaunch-elements-borderColor hover:border-codelaunch-elements-borderColorActive/70 transition-all duration-200">
                   <div className="flex items-center gap-2">
-                    <div className="i-ph:chart-bar w-4 h-4 text-bolt-elements-item-contentAccent" />
-                    <span className="text-sm font-medium text-bolt-elements-textPrimary">GitLab Stats</span>
+                    <div className="i-ph:chart-bar w-4 h-4 text-codelaunch-elements-item-contentAccent" />
+                    <span className="text-sm font-medium text-codelaunch-elements-textPrimary">GitLab Stats</span>
                   </div>
                   <div
                     className={classNames(
-                      'i-ph:caret-down w-4 h-4 transform transition-transform duration-200 text-bolt-elements-textSecondary',
+                      'i-ph:caret-down w-4 h-4 transform transition-transform duration-200 text-codelaunch-elements-textSecondary',
                       isStatsExpanded ? 'rotate-180' : '',
                     )}
                   />

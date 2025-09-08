@@ -54,16 +54,18 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-bolt-elements-background-depth-1 rounded-lg border border-bolt-elements-borderColor shadow-xl z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-codelaunch-elements-background-depth-1 rounded-lg border border-codelaunch-elements-borderColor shadow-xl z-50"
           >
             <div className="p-6">
-              <Dialog.Title className="text-lg font-semibold text-bolt-elements-textPrimary mb-4">
+              <Dialog.Title className="text-lg font-semibold text-codelaunch-elements-textPrimary mb-4">
                 Connect to GitHub
               </Dialog.Title>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-bolt-elements-textPrimary mb-2">Token Type</label>
+                  <label className="block text-sm font-medium text-codelaunch-elements-textPrimary mb-2">
+                    Token Type
+                  </label>
                   <div className="flex gap-2">
                     <label className="flex items-center">
                       <input
@@ -73,7 +75,7 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                         onChange={(e) => setTokenType(e.target.value as 'classic')}
                         className="mr-2"
                       />
-                      <span className="text-sm text-bolt-elements-textSecondary">Classic Token</span>
+                      <span className="text-sm text-codelaunch-elements-textSecondary">Classic Token</span>
                     </label>
                     <label className="flex items-center">
                       <input
@@ -83,13 +85,16 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                         onChange={(e) => setTokenType(e.target.value as 'fine-grained')}
                         className="mr-2"
                       />
-                      <span className="text-sm text-bolt-elements-textSecondary">Fine-grained Token</span>
+                      <span className="text-sm text-codelaunch-elements-textSecondary">Fine-grained Token</span>
                     </label>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="token" className="block text-sm font-medium text-bolt-elements-textPrimary mb-2">
+                  <label
+                    htmlFor="token"
+                    className="block text-sm font-medium text-codelaunch-elements-textPrimary mb-2"
+                  >
                     GitHub Personal Access Token
                   </label>
                   <input
@@ -98,16 +103,16 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                     value={token}
                     onChange={(e) => setToken(e.target.value)}
                     placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    className="w-full px-3 py-2 bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary focus:outline-none focus:ring-1 focus:ring-bolt-elements-borderColorActive"
+                    className="w-full px-3 py-2 bg-codelaunch-elements-background-depth-2 border border-codelaunch-elements-borderColor rounded-md text-codelaunch-elements-textPrimary placeholder-codelaunch-elements-textTertiary focus:outline-none focus:ring-1 focus:ring-codelaunch-elements-borderColorActive"
                     disabled={isSubmitting}
                     autoComplete="off"
                   />
                 </div>
 
-                <div className="bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md p-4">
+                <div className="bg-codelaunch-elements-background-depth-2 border border-codelaunch-elements-borderColor rounded-md p-4">
                   <div className="flex items-start gap-3">
-                    <div className="i-ph:info w-5 h-5 text-bolt-elements-icon-info mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-bolt-elements-textSecondary space-y-2">
+                    <div className="i-ph:info w-5 h-5 text-codelaunch-elements-icon-info mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-codelaunch-elements-textSecondary space-y-2">
                       <p>To create a GitHub Personal Access Token:</p>
                       <ol className="list-decimal list-inside space-y-1 text-xs">
                         <li>Go to GitHub Settings → Developer settings → Personal access tokens</li>
@@ -120,7 +125,7 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                           href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-bolt-elements-textAccent hover:underline"
+                          className="text-codelaunch-elements-textAccent hover:underline"
                         >
                           Learn more about creating tokens →
                         </a>

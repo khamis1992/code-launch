@@ -138,8 +138,28 @@ export async function getTemplates(templateName: string, title?: string) {
     return null;
   }
 
-  const githubRepo = template.githubRepo;
-  const files = await getGitHubRepoContent(githubRepo);
+  let files;
+
+  // Check if it's a local template
+  if ('localTemplate' in template && template.localTemplate) {
+    try {
+      const response = await fetch(`/api/local-template?template=${encodeURIComponent(template.localTemplate)}`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to load local template: ${response.status}`);
+      }
+
+      const templateData = await response.json() as any;
+      files = templateData.files;
+    } catch (error) {
+      console.error('Error loading local template:', error);
+      throw error;
+    }
+  } else if ('githubRepo' in template && template.githubRepo) {
+    files = await getGitHubRepoContent(template.githubRepo);
+  } else {
+    throw new Error('Template has no source defined (neither localTemplate nor githubRepo)');
+  }
 
   let filteredFiles = files;
 
@@ -147,7 +167,7 @@ export async function getTemplates(templateName: string, title?: string) {
    * ignoring common unwanted files
    * exclude    .git
    */
-  filteredFiles = filteredFiles.filter((x) => x.path.startsWith('.git') == false);
+  filteredFiles = filteredFiles.filter((x: any) => x.path.startsWith('.git') == false);
 
   /*
    * exclude    lock files
@@ -161,10 +181,10 @@ export async function getTemplates(templateName: string, title?: string) {
   }
 
   // exclude    .bolt
-  filteredFiles = filteredFiles.filter((x) => x.path.startsWith('.bolt') == false);
+  filteredFiles = filteredFiles.filter((x: any) => x.path.startsWith('.bolt') == false);
 
   // check for ignore file in .bolt folder
-  const templateIgnoreFile = files.find((x) => x.path.startsWith('.bolt') && x.name == 'ignore');
+  const templateIgnoreFile = files.find((x: any) => x.path.startsWith('.bolt') && x.name == 'ignore');
 
   const filesToImport = {
     files: filteredFiles,
@@ -173,22 +193,22 @@ export async function getTemplates(templateName: string, title?: string) {
 
   if (templateIgnoreFile) {
     // redacting files specified in ignore file
-    const ignorepatterns = templateIgnoreFile.content.split('\n').map((x) => x.trim());
+    const ignorepatterns = templateIgnoreFile.content.split('\n').map((x: any) => x.trim());
     const ig = ignore().add(ignorepatterns);
 
     // filteredFiles = filteredFiles.filter(x => !ig.ignores(x.path))
-    const ignoredFiles = filteredFiles.filter((x) => ig.ignores(x.path));
+    const ignoredFiles = filteredFiles.filter((x: any) => ig.ignores(x.path));
 
     filesToImport.files = filteredFiles;
     filesToImport.ignoreFile = ignoredFiles;
   }
 
   const assistantMessage = `
-Bolt is initializing your project with the required files using the ${template.name} template.
+CodeLaunch is initializing your project with the required files using the ${template.name} template.
 <boltArtifact id="imported-files" title="${title || 'Create initial files'}" type="bundled">
 ${filesToImport.files
   .map(
-    (file) =>
+    (file: any) =>
       `<boltAction type="file" filePath="${file.path}">
 ${file.content}
 </boltAction>`,
@@ -197,7 +217,7 @@ ${file.content}
 </boltArtifact>
 `;
   let userMessage = ``;
-  const templatePromptFile = files.filter((x) => x.path.startsWith('.bolt')).find((x) => x.name == 'prompt');
+  const templatePromptFile = files.filter((x: any) => x.path.startsWith('.bolt')).find((x: any) => x.name == 'prompt');
 
   if (templatePromptFile) {
     userMessage = `
@@ -215,7 +235,7 @@ ${templatePromptFile.content}
 STRICT FILE ACCESS RULES - READ CAREFULLY:
 
 The following files are READ-ONLY and must never be modified:
-${filesToImport.ignoreFile.map((file) => `- ${file.path}`).join('\n')}
+${filesToImport.ignoreFile.map((file: any) => `- ${file.path}`).join('\n')}
 
 Permitted actions:
 ✓ Import these files as dependencies

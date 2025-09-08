@@ -10,6 +10,8 @@ import { createScopedLogger } from '~/utils/logger';
 import { createFilesContext, extractPropertiesFromMessage } from './utils';
 import { discussPrompt } from '~/lib/common/prompts/discuss-prompt';
 import type { DesignScheme } from '~/types/design-scheme';
+import { chunkMessages, mergeChunkResults, createChunkSummary, type ChunkedMessage } from './message-chunker';
+import { getModelLimitsWithDefaults, validateTokenRequest } from './model-limits';
 
 export type Messages = Message[];
 
@@ -27,20 +29,16 @@ export interface StreamingOptions extends Omit<Parameters<typeof _streamText>[0]
 const logger = createScopedLogger('stream-text');
 
 function getCompletionTokenLimit(modelDetails: any): number {
-  // 1. If model specifies completion tokens, use that
+  // 1. استخدام قاعدة بيانات حدود النماذج الجديدة
+  const modelLimits = getModelLimitsWithDefaults(modelDetails.name, modelDetails.provider);
+
+  // 2. إذا كان النموذج يحدد حدوده الخاصة، نستخدم الأصغر بين القيمتين للأمان
   if (modelDetails.maxCompletionTokens && modelDetails.maxCompletionTokens > 0) {
-    return modelDetails.maxCompletionTokens;
+    return Math.min(modelDetails.maxCompletionTokens, modelLimits.maxCompletionTokens);
   }
 
-  // 2. Use provider-specific default
-  const providerDefault = PROVIDER_COMPLETION_LIMITS[modelDetails.provider];
-
-  if (providerDefault) {
-    return providerDefault;
-  }
-
-  // 3. Final fallback to MAX_TOKENS, but cap at reasonable limit for safety
-  return Math.min(MAX_TOKENS, 16384);
+  // 3. استخدام حدود قاعدة البيانات
+  return modelLimits.maxCompletionTokens;
 }
 
 function sanitizeText(text: string): string {
@@ -49,6 +47,88 @@ function sanitizeText(text: string): string {
   sanitized = sanitized.replace(/<boltAction type="file" filePath="package-lock\.json">[\s\S]*?<\/boltAction>/g, '');
 
   return sanitized.trim();
+}
+
+/**
+ * معالجة chunk واحد من الرسائل
+ */
+async function processMessageChunk(
+  chunk: ChunkedMessage,
+  systemPrompt: string,
+  modelDetails: any,
+  provider: any,
+  apiKeys: Record<string, string> | undefined,
+  providerSettings: Record<string, IProviderSetting> | undefined,
+  serverEnv: Env | undefined,
+  options: StreamingOptions | undefined,
+  previousResults: string[],
+): Promise<string> {
+  const chunkLogger = createScopedLogger('stream-text-chunk');
+
+  // إضافة ملخص الأجزاء السابقة إذا كان هذا ليس الجزء الأول
+  let contextualSystemPrompt = systemPrompt;
+
+  if (chunk.chunkIndex > 0 && previousResults.length > 0) {
+    const summary = createChunkSummary(previousResults);
+    contextualSystemPrompt = `${systemPrompt}\n\n${summary}`;
+  }
+
+  // إضافة معلومات التقسيم للسياق
+  if (chunk.isPartial) {
+    contextualSystemPrompt += `\n\nملاحظة: هذا الجزء ${chunk.chunkIndex + 1} من ${chunk.totalChunks} من الطلب الكامل. يرجى تقديم إجابة جزئية مناسبة.`;
+  }
+
+  const dynamicMaxTokens = modelDetails ? getCompletionTokenLimit(modelDetails) : Math.min(MAX_TOKENS, 16384);
+  const safeMaxTokens = Math.min(dynamicMaxTokens, modelDetails.maxCompletionTokens || dynamicMaxTokens);
+
+  chunkLogger.info(`معالجة الجزء ${chunk.chunkIndex + 1}/${chunk.totalChunks}, الـ tokens المسموحة: ${safeMaxTokens}`);
+
+  const isReasoning = isReasoningModel(modelDetails.name);
+  const tokenParams = isReasoning ? { maxCompletionTokens: safeMaxTokens } : { maxTokens: safeMaxTokens };
+
+  const filteredOptions =
+    isReasoning && options
+      ? Object.fromEntries(
+          Object.entries(options).filter(
+            ([key]) =>
+              ![
+                'temperature',
+                'topP',
+                'presencePenalty',
+                'frequencyPenalty',
+                'logprobs',
+                'topLogprobs',
+                'logitBias',
+              ].includes(key),
+          ),
+        )
+      : options || {};
+
+  try {
+    const result = await _streamText({
+      model: provider.getModelInstance({
+        model: modelDetails.name,
+        serverEnv,
+        apiKeys,
+        providerSettings,
+      }),
+      system: contextualSystemPrompt,
+      messages: convertToCoreMessages(chunk.messages),
+      ...tokenParams,
+      ...filteredOptions,
+    });
+
+    let responseText = '';
+
+    for await (const textPart of result.textStream) {
+      responseText += textPart;
+    }
+
+    return responseText;
+  } catch (error) {
+    chunkLogger.error(`خطأ في معالجة الجزء ${chunk.chunkIndex + 1}:`, error);
+    throw error;
+  }
 }
 
 export async function streamText(props: {
@@ -142,11 +222,19 @@ export async function streamText(props: {
 
   const dynamicMaxTokens = modelDetails ? getCompletionTokenLimit(modelDetails) : Math.min(MAX_TOKENS, 16384);
 
-  // Use model-specific limits directly - no artificial cap needed
-  const safeMaxTokens = dynamicMaxTokens;
+  // التحقق من صحة الطلب
+  const validation = validateTokenRequest(modelDetails.name, modelDetails.provider, dynamicMaxTokens);
+
+  if (!validation.valid) {
+    logger.error(`Token validation failed: ${validation.error}`);
+
+    // استخدام الحد الأقصى الفعلي بدلاً من الرقم المطلوب
+  }
+
+  const safeMaxTokens = validation.actualLimit;
 
   logger.info(
-    `Token limits for model ${modelDetails.name}: maxTokens=${safeMaxTokens}, maxTokenAllowed=${modelDetails.maxTokenAllowed}, maxCompletionTokens=${modelDetails.maxCompletionTokens}`,
+    `Token limits for model ${modelDetails.name}: safeMaxTokens=${safeMaxTokens}, actualLimit=${validation.actualLimit}, maxTokenAllowed=${modelDetails.maxTokenAllowed}`,
   );
 
   let systemPrompt =
@@ -221,91 +309,108 @@ export async function streamText(props: {
 
   logger.info(`Sending llm call to ${provider.name} with model ${modelDetails.name}`);
 
-  // Log reasoning model detection and token parameters
-  const isReasoning = isReasoningModel(modelDetails.name);
-  logger.info(
-    `Model "${modelDetails.name}" is reasoning model: ${isReasoning}, using ${isReasoning ? 'maxCompletionTokens' : 'maxTokens'}: ${safeMaxTokens}`,
-  );
+  // تقسيم الرسائل إذا كانت تتجاوز الحد المسموح
+  const systemPromptTokens = Math.ceil(systemPrompt.length / 4); // تقدير تقريبي
+  const chunks = chunkMessages(processedMessages, safeMaxTokens, systemPromptTokens);
 
-  // Validate token limits before API call
-  if (safeMaxTokens > (modelDetails.maxTokenAllowed || 128000)) {
-    logger.warn(
-      `Token limit warning: requesting ${safeMaxTokens} tokens but model supports max ${modelDetails.maxTokenAllowed || 128000}`,
-    );
-  }
+  if (chunks.length === 1 && !chunks[0].isPartial) {
+    // لا حاجة للتقسيم، معالجة عادية
+    logger.info('الرسائل تدخل ضمن الحد المسموح، معالجة عادية');
 
-  // Use maxCompletionTokens for reasoning models (o1, GPT-5), maxTokens for traditional models
-  const tokenParams = isReasoning ? { maxCompletionTokens: safeMaxTokens } : { maxTokens: safeMaxTokens };
+    const isReasoning = isReasoningModel(modelDetails.name);
+    const tokenParams = isReasoning ? { maxCompletionTokens: safeMaxTokens } : { maxTokens: safeMaxTokens };
 
-  // Filter out unsupported parameters for reasoning models
-  const filteredOptions =
-    isReasoning && options
-      ? Object.fromEntries(
-          Object.entries(options).filter(
-            ([key]) =>
-              ![
-                'temperature',
-                'topP',
-                'presencePenalty',
-                'frequencyPenalty',
-                'logprobs',
-                'topLogprobs',
-                'logitBias',
-              ].includes(key),
+    const filteredOptions =
+      isReasoning && options
+        ? Object.fromEntries(
+            Object.entries(options).filter(
+              ([key]) =>
+                ![
+                  'temperature',
+                  'topP',
+                  'presencePenalty',
+                  'frequencyPenalty',
+                  'logprobs',
+                  'topLogprobs',
+                  'logitBias',
+                ].includes(key),
+            ),
+          )
+        : options || {};
+
+    const streamParams = {
+      model: provider.getModelInstance({
+        model: modelDetails.name,
+        serverEnv,
+        apiKeys,
+        providerSettings,
+      }),
+      system: chatMode === 'build' ? systemPrompt : discussPrompt(),
+      ...tokenParams,
+      messages: convertToCoreMessages(processedMessages as any),
+      ...filteredOptions,
+      ...(isReasoning ? { temperature: 1 } : {}),
+    };
+
+    return await _streamText(streamParams);
+  } else {
+    // معالجة الرسائل المقسمة
+    logger.info(`تقسيم الرسائل إلى ${chunks.length} جزء للمعالجة`);
+
+    const results: string[] = [];
+
+    for (const chunk of chunks) {
+      try {
+        const result = await processMessageChunk(
+          chunk,
+          chatMode === 'build' ? systemPrompt : discussPrompt(),
+          modelDetails,
+          provider,
+          apiKeys,
+          providerSettings,
+          serverEnv,
+          options,
+          results,
+        );
+
+        results.push(result);
+        logger.info(`تم إكمال الجزء ${chunk.chunkIndex + 1}/${chunk.totalChunks}`);
+      } catch (error) {
+        logger.error(`فشل في معالجة الجزء ${chunk.chunkIndex + 1}:`, error);
+
+        // في حالة فشل أحد الأجزاء، نحاول المتابعة مع باقي الأجزاء
+        results.push(
+          `خطأ في الجزء ${chunk.chunkIndex + 1}: ${error instanceof Error ? error.message : 'خطأ غير محدد'}`,
+        );
+      }
+    }
+
+    // دمج النتائج وإرجاعها كـ stream
+    const mergedResult = mergeChunkResults(results);
+
+    // إنشاء stream مصطنع للنتيجة المدمجة
+    return {
+      textStream: (async function* () {
+        yield mergedResult;
+      })(),
+      text: Promise.resolve(mergedResult),
+      finishReason: Promise.resolve('stop' as const),
+      usage: Promise.resolve({
+        promptTokens:
+          systemPromptTokens +
+          chunks.reduce(
+            (total, chunk) =>
+              total +
+              chunk.messages.reduce(
+                (msgTotal, msg) =>
+                  msgTotal + (typeof msg.content === 'string' ? Math.ceil(msg.content.length / 4) : 100),
+                0,
+              ),
+            0,
           ),
-        )
-      : options || {};
-
-  // DEBUG: Log filtered options
-  logger.info(
-    `DEBUG STREAM: Options filtering for model "${modelDetails.name}":`,
-    JSON.stringify(
-      {
-        isReasoning,
-        originalOptions: options || {},
-        filteredOptions,
-        originalOptionsKeys: options ? Object.keys(options) : [],
-        filteredOptionsKeys: Object.keys(filteredOptions),
-        removedParams: options ? Object.keys(options).filter((key) => !(key in filteredOptions)) : [],
-      },
-      null,
-      2,
-    ),
-  );
-
-  const streamParams = {
-    model: provider.getModelInstance({
-      model: modelDetails.name,
-      serverEnv,
-      apiKeys,
-      providerSettings,
-    }),
-    system: chatMode === 'build' ? systemPrompt : discussPrompt(),
-    ...tokenParams,
-    messages: convertToCoreMessages(processedMessages as any),
-    ...filteredOptions,
-
-    // Set temperature to 1 for reasoning models (required by OpenAI API)
-    ...(isReasoning ? { temperature: 1 } : {}),
-  };
-
-  // DEBUG: Log final streaming parameters
-  logger.info(
-    `DEBUG STREAM: Final streaming params for model "${modelDetails.name}":`,
-    JSON.stringify(
-      {
-        hasTemperature: 'temperature' in streamParams,
-        hasMaxTokens: 'maxTokens' in streamParams,
-        hasMaxCompletionTokens: 'maxCompletionTokens' in streamParams,
-        paramKeys: Object.keys(streamParams).filter((key) => !['model', 'messages', 'system'].includes(key)),
-        streamParams: Object.fromEntries(
-          Object.entries(streamParams).filter(([key]) => !['model', 'messages', 'system'].includes(key)),
-        ),
-      },
-      null,
-      2,
-    ),
-  );
-
-  return await _streamText(streamParams);
+        completionTokens: Math.ceil(mergedResult.length / 4),
+        totalTokens: 0,
+      }),
+    };
+  }
 }

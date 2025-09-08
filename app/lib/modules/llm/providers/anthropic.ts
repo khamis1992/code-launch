@@ -22,7 +22,7 @@ export default class AnthropicProvider extends BaseProvider {
       label: 'Claude 3.5 Sonnet',
       provider: 'Anthropic',
       maxTokenAllowed: 200000,
-      maxCompletionTokens: 128000,
+      maxCompletionTokens: 8192, // الحد الأقصى الفعلي لهذا النموذج
     },
 
     // Claude 3 Haiku: 200k context, fastest and most cost-effective
@@ -32,6 +32,15 @@ export default class AnthropicProvider extends BaseProvider {
       provider: 'Anthropic',
       maxTokenAllowed: 200000,
       maxCompletionTokens: 128000,
+    },
+
+    // Claude Sonnet 4: 200k context, 64k output limit (latest Sonnet model)
+    {
+      name: 'claude-sonnet-4-20250514',
+      label: 'Claude 4 Sonnet',
+      provider: 'Anthropic',
+      maxTokenAllowed: 200000,
+      maxCompletionTokens: 64000,
     },
 
     // Claude Opus 4: 200k context, 32k output limit (latest flagship model)

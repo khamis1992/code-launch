@@ -124,7 +124,7 @@ async function fetchRepoContentsCloudflare(repo: string, githubToken?: string) {
 async function fetchRepoContentsZip(repo: string, githubToken?: string) {
   const baseUrl = 'https://api.github.com';
 
-  // Get the latest release
+  // Try to get the latest release first
   const releaseResponse = await fetch(`${baseUrl}/repos/${repo}/releases/latest`, {
     headers: {
       Accept: 'application/vnd.github.v3+json',
@@ -133,8 +133,10 @@ async function fetchRepoContentsZip(repo: string, githubToken?: string) {
     },
   });
 
+  // If no releases found, fallback to main branch
   if (!releaseResponse.ok) {
-    throw new Error(`GitHub API error: ${releaseResponse.status} - ${releaseResponse.statusText}`);
+    console.warn(`No releases found for ${repo}, falling back to main branch`);
+    return await fetchRepoContentsCloudflare(repo, githubToken);
   }
 
   const releaseData = (await releaseResponse.json()) as any;
@@ -216,10 +218,22 @@ export async function loader({ request, context }: { request: Request; context: 
 
     let fileList;
 
-    if (isCloudflareEnvironment(context)) {
-      fileList = await fetchRepoContentsCloudflare(repo, githubToken);
-    } else {
-      fileList = await fetchRepoContentsZip(repo, githubToken);
+    try {
+      if (isCloudflareEnvironment(context)) {
+        fileList = await fetchRepoContentsCloudflare(repo, githubToken);
+      } else {
+        fileList = await fetchRepoContentsZip(repo, githubToken);
+      }
+    } catch (repoError) {
+      console.warn(`Failed to fetch ${repo}:`, repoError instanceof Error ? repoError.message : String(repoError));
+
+      // Return empty template instead of error
+      return json({
+        error: 'Repository not available',
+        message: `The template repository "${repo}" is not accessible. Using blank template instead.`,
+        fallback: true,
+        files: [],
+      });
     }
 
     // Filter out .git files for both methods
@@ -231,12 +245,16 @@ export async function loader({ request, context }: { request: Request; context: 
     console.error('Repository:', repo);
     console.error('Error details:', error instanceof Error ? error.message : String(error));
 
+    // Return a more user-friendly response
     return json(
       {
-        error: 'Failed to fetch template files',
+        error: 'Template unavailable',
+        message: `Could not load template from "${repo}". Using blank template instead.`,
         details: error instanceof Error ? error.message : String(error),
+        fallback: true,
+        files: [],
       },
-      { status: 500 },
+      { status: 200 }, // Changed from 500 to 200 to avoid breaking the flow
     );
   }
 }

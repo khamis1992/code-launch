@@ -106,8 +106,7 @@ ${escapeBoltTags(file.content)}
         console.error('Error during import:', error);
         toast.error('Failed to import repository');
         setLoading(false);
-        window.location.href = '/';
-
+        // Stay on current page instead of redirecting
         return;
       }
     }
@@ -121,7 +120,7 @@ ${escapeBoltTags(file.content)}
     const url = searchParams.get('url');
 
     if (!url) {
-      window.location.href = '/';
+      // No URL parameter - stay on current page instead of redirecting
       return;
     }
 
@@ -129,7 +128,7 @@ ${escapeBoltTags(file.content)}
       console.error('Error importing repo:', error);
       toast.error('Failed to import repository');
       setLoading(false);
-      window.location.href = '/';
+      // Stay on current page instead of redirecting to home
     });
     setImported(true);
   }, [searchParams, historyReady, gitReady, imported]);

@@ -1,5 +1,5 @@
-appId: com.stackblitz.bolt.diy
-productName: Bolt Local
+appId: com.codelaunch.ai
+productName: CodeLaunch
 directories:
   buildResources: build
   output: dist

@@ -1,4 +1,4 @@
-site_name: bolt.diy Docs
+site_name: CodeLaunch.ai Docs
 site_dir: ../site
 theme:
   name: material
@@ -31,25 +31,25 @@ theme:
     repo: fontawesome/brands/github
   # logo: assets/logo.png
   # favicon: assets/logo.png
-repo_name: bolt.diy
-repo_url: https://github.com/stackblitz-labs/bolt.diy
+repo_name: CodeLaunch.ai
+repo_url: https://github.com/stackblitz-labs/CodeLaunch.ai
 edit_uri: ''
 
 extra:
   generator: false
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/stackblitz-labs/bolt.diy
-      name: bolt.diy
+      link: https://github.com/stackblitz-labs/CodeLaunch.ai
+      name: CodeLaunch.ai
     - icon: fontawesome/brands/discourse
       link: https://thinktank.ottomator.ai/
-      name: bolt.diy Discourse
+      name: CodeLaunch.ai Discourse
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/bolt_diy
-      name: bolt.diy on X
+      name: CodeLaunch.ai on X
     - icon: fontawesome/brands/bluesky
-      link: https://bsky.app/profile/bolt.diy
-      name: bolt.diy on Bluesky
+      link: https://bsky.app/profile/CodeLaunch.ai
+      name: CodeLaunch.ai on Bluesky
 
 markdown_extensions:
   - pymdownx.highlight:

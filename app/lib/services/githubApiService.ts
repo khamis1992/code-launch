@@ -73,7 +73,7 @@ class GitHubApiService {
       headers: {
         'Content-Type': 'application/json',
         Authorization: authHeader,
-        'User-Agent': 'bolt.diy-app',
+        'User-Agent': 'CodeLaunch.ai-app',
         ...options.headers,
       },
     });
@@ -256,7 +256,7 @@ class GitHubApiService {
       const response = await fetch(languagesUrl, {
         headers: {
           Authorization: `token ${token}`,
-          'User-Agent': 'bolt.diy-app',
+          'User-Agent': 'CodeLaunch.ai-app',
         },
       });
 

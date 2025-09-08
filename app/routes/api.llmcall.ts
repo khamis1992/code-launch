@@ -4,6 +4,7 @@ import type { IProviderSetting, ProviderInfo } from '~/types/model';
 import { generateText } from 'ai';
 import { PROVIDER_LIST } from '~/utils/constants';
 import { MAX_TOKENS, PROVIDER_COMPLETION_LIMITS, isReasoningModel } from '~/lib/.server/llm/constants';
+import { getModelLimitsWithDefaults, validateTokenRequest } from '~/lib/.server/llm/model-limits';
 import { LLMManager } from '~/lib/modules/llm/manager';
 import type { ModelInfo } from '~/lib/modules/llm/types';
 import { getApiKeysFromCookie, getProviderSettingsFromCookie } from '~/lib/api/cookies';
@@ -25,39 +26,26 @@ async function getModelList(options: {
 const logger = createScopedLogger('api.llmcall');
 
 function getCompletionTokenLimit(modelDetails: ModelInfo): number {
-  // 1. If model specifies completion tokens, use that
+  // استخدام قاعدة بيانات حدود النماذج الجديدة
+  const modelLimits = getModelLimitsWithDefaults(modelDetails.name, modelDetails.provider);
+
+  // إذا كان النموذج يحدد حدوده الخاصة، نستخدم الأصغر بين القيمتين للأمان
   if (modelDetails.maxCompletionTokens && modelDetails.maxCompletionTokens > 0) {
-    return modelDetails.maxCompletionTokens;
+    return Math.min(modelDetails.maxCompletionTokens, modelLimits.maxCompletionTokens);
   }
 
-  // 2. Use provider-specific default
-  const providerDefault = PROVIDER_COMPLETION_LIMITS[modelDetails.provider];
-
-  if (providerDefault) {
-    return providerDefault;
-  }
-
-  // 3. Final fallback to MAX_TOKENS, but cap at reasonable limit for safety
-  return Math.min(MAX_TOKENS, 16384);
+  // استخدام حدود قاعدة البيانات
+  return modelLimits.maxCompletionTokens;
 }
 
 function validateTokenLimits(modelDetails: ModelInfo, requestedTokens: number): { valid: boolean; error?: string } {
-  const modelMaxTokens = modelDetails.maxTokenAllowed || 128000;
-  const maxCompletionTokens = getCompletionTokenLimit(modelDetails);
+  // استخدام دالة التحقق الجديدة
+  const validation = validateTokenRequest(modelDetails.name, modelDetails.provider, requestedTokens);
 
-  // Check against model's context window
-  if (requestedTokens > modelMaxTokens) {
+  if (!validation.valid) {
     return {
       valid: false,
-      error: `Requested tokens (${requestedTokens}) exceed model's context window (${modelMaxTokens}). Please reduce your request size.`,
-    };
-  }
-
-  // Check against completion token limits
-  if (requestedTokens > maxCompletionTokens) {
-    return {
-      valid: false,
-      error: `Requested tokens (${requestedTokens}) exceed model's completion limit (${maxCompletionTokens}). Consider using a model with higher token limits.`,
+      error: `Custom error: max_tokens: ${requestedTokens} > ${validation.actualLimit}, which is the maximum allowed number of output tokens for ${modelDetails.name}`,
     };
   }
 
@@ -111,7 +99,7 @@ async function llmCallAction({ context, request }: ActionFunctionArgs) {
         providerSettings,
       });
 
-      return new Response(result.textStream, {
+      return new Response(result.textStream as any, {
         status: 200,
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',

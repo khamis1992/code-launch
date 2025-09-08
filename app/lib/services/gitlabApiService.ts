@@ -365,7 +365,7 @@ export class GitLabApiService {
 
       const commitRequest: GitLabCommitRequest = {
         branch: 'main',
-        commit_message: 'Initial commit from Bolt.diy',
+        commit_message: 'Initial commit from CodeLaunch',
         actions,
       };
 
@@ -389,7 +389,7 @@ export class GitLabApiService {
 
     const commitRequest: GitLabCommitRequest = {
       branch: 'main',
-      commit_message: 'Update from Bolt.diy',
+      commit_message: 'Update from CodeLaunch',
       actions,
     };
 
@@ -406,7 +406,7 @@ export class GitLabApiService {
 
         const updateCommitRequest: GitLabCommitRequest = {
           branch: 'main',
-          commit_message: 'Update from Bolt.diy',
+          commit_message: 'Update from CodeLaunch',
           actions: updateActions,
         };
 

@@ -26,19 +26,6 @@ export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tailwindReset },
   { rel: 'stylesheet', href: globalStyles },
   { rel: 'stylesheet', href: xtermStyles },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.googleapis.com',
-  },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
-  },
-  {
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-  },
 ];
 
 const inlineThemeCode = stripIndents`
@@ -82,22 +69,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 import { logStore } from './lib/stores/logs';
+import { WorkingAuthProvider } from './components/auth/WorkingAuthProvider';
+import { AutoSupabaseSetup } from './lib/services/autoSupabaseSetup';
 
 export default function App() {
   const theme = useStore(themeStore);
 
   useEffect(() => {
+    // Initialize application
     logStore.logSystem('Application initialized', {
       theme,
       platform: navigator.platform,
       userAgent: navigator.userAgent,
       timestamp: new Date().toISOString(),
     });
+
+    // Auto-setup Supabase
+    AutoSupabaseSetup.initialize().then(success => {
+      if (success) {
+        console.log('✅ Supabase ready for CodeLaunch');
+      } else {
+        console.warn('⚠️ Supabase needs manual setup');
+      }
+    });
   }, []);
 
   return (
     <Layout>
-      <Outlet />
+      <WorkingAuthProvider>
+        <Outlet />
+      </WorkingAuthProvider>
     </Layout>
   );
 }
