@@ -1,0 +1,270 @@
+/* CodeLaunch Professional Design System */
+/* الألوان الأساسية: 🌿 Mint Green #98FF98 | 🌊 Navy Blue #1E3A8A | 🏖️ Sand Beige #F5F5DC */
+
+:root,
+:root[data-theme='light'] {
+  /* الألوان الأساسية للعلامة التجارية */
+  --codelaunch-mint-primary: #98FF98;
+  --codelaunch-navy-primary: #1E3A8A;
+  --codelaunch-sand-primary: #F5F5DC;
+  
+  /* الحدود والفواصل */
+  --codelaunch-elements-borderColor: rgba(30, 58, 138, 0.15);
+  --codelaunch-elements-borderColorActive: #98FF98;
+  --codelaunch-elements-borderColorHover: rgba(152, 255, 152, 0.5);
+
+  /* الخلفيات - تدرج احترافي */
+  --codelaunch-elements-bg-depth-1: #ffffff;
+  --codelaunch-elements-bg-depth-2: #fefefe;
+  --codelaunch-elements-bg-depth-3: rgba(245, 245, 220, 0.3);
+  --codelaunch-elements-bg-depth-4: rgba(245, 245, 220, 0.6);
+
+  /* النصوص - تباين احترافي */
+  --codelaunch-elements-textPrimary: #1E3A8A;
+  --codelaunch-elements-textSecondary: rgba(30, 58, 138, 0.8);
+  --codelaunch-elements-textTertiary: rgba(30, 58, 138, 0.6);
+
+  --codelaunch-elements-code-background: theme('colors.gray.100');
+  --codelaunch-elements-code-text: theme('colors.gray.950');
+
+  /* الأزرار - تصميم احترافي بالألوان الجديدة */
+  --codelaunch-elements-button-primary-background: linear-gradient(135deg, #98FF98 0%, rgba(152, 255, 152, 0.9) 100%);
+  --codelaunch-elements-button-primary-backgroundHover: linear-gradient(135deg, rgba(152, 255, 152, 0.9) 0%, #7ce87c 100%);
+  --codelaunch-elements-button-primary-text: #1E3A8A;
+
+  --codelaunch-elements-button-secondary-background: #1E3A8A;
+  --codelaunch-elements-button-secondary-backgroundHover: rgba(30, 58, 138, 0.9);
+  --codelaunch-elements-button-secondary-text: #ffffff;
+
+  --codelaunch-elements-button-danger-background: rgba(239, 68, 68, 0.1);
+  --codelaunch-elements-button-danger-backgroundHover: rgba(239, 68, 68, 0.2);
+  --codelaunch-elements-button-danger-text: #dc2626;
+
+  /* العناصر التفاعلية - ألوان احترافية */
+  --codelaunch-elements-item-contentDefault: rgba(30, 58, 138, 0.7);
+  --codelaunch-elements-item-contentActive: #1E3A8A;
+  --codelaunch-elements-item-contentAccent: #98FF98;
+  --codelaunch-elements-item-contentDanger: #dc2626;
+  --codelaunch-elements-item-backgroundDefault: transparent;
+  --codelaunch-elements-item-backgroundActive: rgba(245, 245, 220, 0.5);
+  --codelaunch-elements-item-backgroundAccent: rgba(152, 255, 152, 0.1);
+  --codelaunch-elements-item-backgroundDanger: rgba(239, 68, 68, 0.1);
+
+  /* شريط التحميل والتقدم */
+  --codelaunch-elements-loader-background: rgba(245, 245, 220, 0.8);
+  --codelaunch-elements-loader-progress: linear-gradient(90deg, #98FF98 0%, #1E3A8A 100%);
+
+  /* الأدوات والمصنوعات */
+  --codelaunch-elements-artifacts-background: #ffffff;
+  --codelaunch-elements-artifacts-backgroundHover: rgba(245, 245, 220, 0.2);
+  --codelaunch-elements-artifacts-borderColor: var(--codelaunch-elements-borderColor);
+  --codelaunch-elements-artifacts-inlineCode-background: rgba(245, 245, 220, 0.6);
+  --codelaunch-elements-artifacts-inlineCode-text: var(--codelaunch-elements-textPrimary);
+
+  /* الإجراءات والأكواد */
+  --codelaunch-elements-actions-background: #ffffff;
+  --codelaunch-elements-actions-code-background: #1E3A8A;
+
+  /* الرسائل والمحادثات */
+  --codelaunch-elements-messages-background: rgba(245, 245, 220, 0.3);
+  --codelaunch-elements-messages-linkColor: #1E3A8A;
+  --codelaunch-elements-messages-code-background: #1E3A8A;
+  --codelaunch-elements-messages-inlineCode-background: rgba(245, 245, 220, 0.8);
+  --codelaunch-elements-messages-inlineCode-text: #1E3A8A;
+
+  /* الأيقونات - ألوان متناسقة */
+  --codelaunch-elements-icon-success: #98FF98;
+  --codelaunch-elements-icon-error: #dc2626;
+  --codelaunch-elements-icon-primary: #1E3A8A;
+  --codelaunch-elements-icon-secondary: rgba(30, 58, 138, 0.6);
+  --codelaunch-elements-icon-tertiary: theme('colors.gray.500');
+
+  --codelaunch-elements-dividerColor: theme('colors.gray.100');
+
+  --codelaunch-elements-prompt-background: theme('colors.alpha.white.80');
+
+
+  /* شريط عنوان المعاينة - تصميم احترافي */
+  --codelaunch-elements-preview-addressBar-background: linear-gradient(135deg, rgba(245, 245, 220, 0.8) 0%, rgba(245, 245, 220, 0.6) 100%);
+  --codelaunch-elements-preview-addressBar-backgroundHover: rgba(152, 255, 152, 0.1);
+  --codelaunch-elements-preview-addressBar-backgroundActive: rgba(152, 255, 152, 0.2);
+  --codelaunch-elements-preview-addressBar-text: var(--codelaunch-elements-textSecondary);
+  --codelaunch-elements-preview-addressBar-textActive: var(--codelaunch-elements-textPrimary);
+
+  --codelaunch-elements-terminals-background: theme('colors.white');
+  --codelaunch-elements-terminals-buttonBackground: var(--codelaunch-elements-bg-depth-4);
+
+  --codelaunch-elements-cta-background: theme('colors.gray.100');
+  --codelaunch-elements-cta-text: theme('colors.gray.950');
+
+  /* Terminal Colors */
+  --bolt-terminal-background: var(--codelaunch-elements-terminals-background);
+  --bolt-terminal-foreground: #333333;
+  --bolt-terminal-selection-background: #00000040;
+  --bolt-terminal-black: #000000;
+  --bolt-terminal-red: #cd3131;
+  --bolt-terminal-green: #00bc00;
+  --bolt-terminal-yellow: #949800;
+  --bolt-terminal-blue: #0451a5;
+  --bolt-terminal-magenta: #bc05bc;
+  --bolt-terminal-cyan: #0598bc;
+  --bolt-terminal-white: #555555;
+  --bolt-terminal-brightBlack: #686868;
+  --bolt-terminal-brightRed: #cd3131;
+  --bolt-terminal-brightGreen: #00bc00;
+  --bolt-terminal-brightYellow: #949800;
+  --bolt-terminal-brightBlue: #0451a5;
+  --bolt-terminal-brightMagenta: #bc05bc;
+  --bolt-terminal-brightCyan: #0598bc;
+  --bolt-terminal-brightWhite: #a5a5a5;
+  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3); // Example light theme color
+  --modern-scrollbar-thumb-backgroundHover: rgba(74, 74, 74, 0.8);
+}
+
+/* CodeLaunch Dark Theme - Professional Night Mode */
+:root[data-theme='dark'] {
+  /* الحدود - النمط الداكن الاحترافي */
+  --codelaunch-elements-borderColor: rgba(152, 255, 152, 0.2);
+  --codelaunch-elements-borderColorActive: #98FF98;
+  --codelaunch-elements-borderColorHover: rgba(152, 255, 152, 0.4);
+
+  /* الخلفيات - تدرج ليلي احترافي */
+  --codelaunch-elements-bg-depth-1: #0a0f1a;
+  --codelaunch-elements-bg-depth-2: #111827;
+  --codelaunch-elements-bg-depth-3: #1f2937;
+  --codelaunch-elements-bg-depth-4: rgba(30, 58, 138, 0.1);
+
+  /* النصوص - تباين مثالي */
+  --codelaunch-elements-textPrimary: #F5F5DC;
+  --codelaunch-elements-textSecondary: rgba(245, 245, 220, 0.8);
+  --codelaunch-elements-textTertiary: rgba(245, 245, 220, 0.6);
+
+  --codelaunch-elements-code-background: theme('colors.gray.800');
+  --codelaunch-elements-code-text: theme('colors.white');
+
+  /* الأزرار - النمط الداكن الاحترافي */
+  --codelaunch-elements-button-primary-background: linear-gradient(135deg, #98FF98 0%, rgba(152, 255, 152, 0.8) 100%);
+  --codelaunch-elements-button-primary-backgroundHover: linear-gradient(135deg, rgba(152, 255, 152, 0.9) 0%, #7ce87c 100%);
+  --codelaunch-elements-button-primary-text: #1E3A8A;
+
+  --codelaunch-elements-button-secondary-background: rgba(30, 58, 138, 0.8);
+  --codelaunch-elements-button-secondary-backgroundHover: #1E3A8A;
+  --codelaunch-elements-button-secondary-text: #F5F5DC;
+
+  --codelaunch-elements-button-danger-background: theme('colors.alpha.red.10');
+  --codelaunch-elements-button-danger-backgroundHover: theme('colors.alpha.red.20');
+  --codelaunch-elements-button-danger-text: theme('colors.red.500');
+
+  --codelaunch-elements-item-contentDefault: theme('colors.alpha.white.50');
+  --codelaunch-elements-item-contentActive: theme('colors.white');
+  --codelaunch-elements-item-contentAccent: theme('colors.accent.500');
+  --codelaunch-elements-item-contentDanger: theme('colors.red.500');
+  --codelaunch-elements-item-backgroundDefault: rgba(255, 255, 255, 0);
+  --codelaunch-elements-item-backgroundActive: theme('colors.alpha.white.10');
+  --codelaunch-elements-item-backgroundAccent: theme('colors.alpha.accent.10');
+  --codelaunch-elements-item-backgroundDanger: theme('colors.alpha.red.10');
+
+  --codelaunch-elements-loader-background: theme('colors.alpha.gray.10');
+  --codelaunch-elements-loader-progress: theme('colors.accent.500');
+
+  --codelaunch-elements-artifacts-background: theme('colors.gray.900');
+  --codelaunch-elements-artifacts-backgroundHover: theme('colors.alpha.white.5');
+  --codelaunch-elements-artifacts-borderColor: var(--codelaunch-elements-borderColor);
+  --codelaunch-elements-artifacts-inlineCode-background: theme('colors.gray.800');
+  --codelaunch-elements-artifacts-inlineCode-text: theme('colors.white');
+
+  --codelaunch-elements-actions-background: theme('colors.gray.900');
+  --codelaunch-elements-actions-code-background: theme('colors.gray.800');
+
+  --codelaunch-elements-messages-background: theme('colors.gray.800');
+  --codelaunch-elements-messages-linkColor: theme('colors.accent.500');
+  --codelaunch-elements-messages-code-background: theme('colors.gray.900');
+  --codelaunch-elements-messages-inlineCode-background: theme('colors.gray.700');
+  --codelaunch-elements-messages-inlineCode-text: var(--codelaunch-elements-textPrimary);
+
+  --codelaunch-elements-icon-success: theme('colors.green.400');
+  --codelaunch-elements-icon-error: theme('colors.red.400');
+  --codelaunch-elements-icon-primary: theme('colors.gray.950');
+  --codelaunch-elements-icon-secondary: theme('colors.gray.600');
+  --codelaunch-elements-icon-tertiary: theme('colors.gray.500');
+
+  --codelaunch-elements-dividerColor: theme('colors.gray.100');
+
+  --codelaunch-elements-prompt-background: theme('colors.alpha.gray.80');
+
+
+  --codelaunch-elements-preview-addressBar-background: var(--codelaunch-elements-bg-depth-1);
+  --codelaunch-elements-preview-addressBar-backgroundHover: theme('colors.alpha.white.5');
+  --codelaunch-elements-preview-addressBar-backgroundActive: var(--codelaunch-elements-bg-depth-1);
+  --codelaunch-elements-preview-addressBar-text: var(--codelaunch-elements-textSecondary);
+  --codelaunch-elements-preview-addressBar-textActive: var(--codelaunch-elements-textPrimary);
+
+  --codelaunch-elements-terminals-background: var(--codelaunch-elements-bg-depth-1);
+  --codelaunch-elements-terminals-buttonBackground: var(--codelaunch-elements-bg-depth-3);
+
+  --codelaunch-elements-cta-background: theme('colors.alpha.white.10');
+  --codelaunch-elements-cta-text: theme('colors.white');
+
+  /* Terminal Colors */
+  --bolt-terminal-background: var(--codelaunch-elements-terminals-background);
+  --bolt-terminal-foreground: #eff0eb;
+  --bolt-terminal-selection-background: #97979b33;
+  --bolt-terminal-black: #000000;
+  --bolt-terminal-red: #ff5c57;
+  --bolt-terminal-green: #5af78e;
+  --bolt-terminal-yellow: #f3f99d;
+  --bolt-terminal-blue: #57c7ff;
+  --bolt-terminal-magenta: #ff6ac1;
+  --bolt-terminal-cyan: #9aedfe;
+  --bolt-terminal-white: #f1f1f0;
+  --bolt-terminal-brightBlack: #686868;
+  --bolt-terminal-brightRed: #ff5c57;
+  --bolt-terminal-brightGreen: #5af78e;
+  --bolt-terminal-brightYellow: #f3f99d;
+  --bolt-terminal-brightBlue: #57c7ff;
+  --bolt-terminal-brightMagenta: #ff6ac1;
+  --bolt-terminal-brightCyan: #9aedfe;
+  --bolt-terminal-brightWhite: #f1f1f0;
+  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3); // Example dark theme color (adjust as needed)
+  --modern-scrollbar-thumb-backgroundHover: rgba(10, 10, 10, 0.8);
+}
+
+/*
+ * Element Tokens
+ *
+ * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
+ */
+:root {
+  --header-height: 54px;
+  --chat-max-width: 33rem;
+  --chat-min-width: 533px;
+  --workbench-width: min(calc(100% - var(--chat-min-width)), 2536px);
+  --workbench-inner-width: var(--workbench-width);
+  --workbench-left: calc(100% - var(--workbench-width));
+
+  /* Toasts */
+  --toastify-color-progress-success: var(--codelaunch-elements-icon-success);
+  --toastify-color-progress-error: var(--codelaunch-elements-icon-error);
+
+  /* Terminal */
+  --codelaunch-elements-terminal-backgroundColor: var(--bolt-terminal-background);
+  --codelaunch-elements-terminal-textColor: var(--bolt-terminal-foreground);
+  --codelaunch-elements-terminal-cursorColor: var(--bolt-terminal-foreground);
+  --codelaunch-elements-terminal-selection-backgroundColor: var(--bolt-terminal-selection-background);
+  --codelaunch-elements-terminal-color-black: var(--bolt-terminal-black);
+  --codelaunch-elements-terminal-color-red: var(--bolt-terminal-red);
+  --codelaunch-elements-terminal-color-green: var(--bolt-terminal-green);
+  --codelaunch-elements-terminal-color-yellow: var(--bolt-terminal-yellow);
+  --codelaunch-elements-terminal-color-blue: var(--bolt-terminal-blue);
+  --codelaunch-elements-terminal-color-magenta: var(--bolt-terminal-magenta);
+  --codelaunch-elements-terminal-color-cyan: var(--bolt-terminal-cyan);
+  --codelaunch-elements-terminal-color-white: var(--bolt-terminal-white);
+  --codelaunch-elements-terminal-color-brightBlack: var(--bolt-terminal-brightBlack);
+  --codelaunch-elements-terminal-color-brightRed: var(--bolt-terminal-brightRed);
+  --codelaunch-elements-terminal-color-brightGreen: var(--bolt-terminal-brightGreen);
+  --codelaunch-elements-terminal-color-brightYellow: var(--bolt-terminal-brightYellow);
+  --codelaunch-elements-terminal-color-brightBlue: var(--bolt-terminal-brightBlue);
+  --codelaunch-elements-terminal-color-brightMagenta: var(--bolt-terminal-brightMagenta);
+  --codelaunch-elements-terminal-color-brightCyan: var(--bolt-terminal-brightCyan);
+  --codelaunch-elements-terminal-color-brightWhite: var(--bolt-terminal-brightWhite);
+}

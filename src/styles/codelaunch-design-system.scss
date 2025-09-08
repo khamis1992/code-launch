@@ -1,0 +1,446 @@
+/**
+ * CodeLaunch Design System
+ * نظام التصميم الاحترافي لمنصة CodeLaunch
+ * 
+ * الألوان الأساسية:
+ * 🌿 Mint Green: #98FF98 (الأخضر النعناع)
+ * 🌊 Marine Navy Blue: #1E3A8A (الكحلي المرين)  
+ * 🏖️ Light Sand Beige: #F5F5DC (الرملي الفاتح)
+ */
+
+/* ===== CORE COLOR PALETTE ===== */
+:root {
+  /* الألوان الأساسية */
+  --codelaunch-mint-green: #98FF98;
+  --codelaunch-navy-blue: #1E3A8A;
+  --codelaunch-sand-beige: #F5F5DC;
+  
+  /* تدرجات الأخضر النعناع */
+  --codelaunch-mint-50: #f0fdf4;
+  --codelaunch-mint-100: #dcfce7;
+  --codelaunch-mint-200: #bbf7d0;
+  --codelaunch-mint-300: #86efac;
+  --codelaunch-mint-400: #4ade80;
+  --codelaunch-mint-500: #98FF98; /* الأساسي */
+  --codelaunch-mint-600: #16a34a;
+  --codelaunch-mint-700: #15803d;
+  --codelaunch-mint-800: #166534;
+  --codelaunch-mint-900: #14532d;
+  
+  /* تدرجات الكحلي المرين */
+  --codelaunch-navy-50: #eff6ff;
+  --codelaunch-navy-100: #dbeafe;
+  --codelaunch-navy-200: #bfdbfe;
+  --codelaunch-navy-300: #93c5fd;
+  --codelaunch-navy-400: #60a5fa;
+  --codelaunch-navy-500: #3b82f6;
+  --codelaunch-navy-600: #2563eb;
+  --codelaunch-navy-700: #1d4ed8;
+  --codelaunch-navy-800: #1E3A8A; /* الأساسي */
+  --codelaunch-navy-900: #1e3a8a;
+  --codelaunch-navy-950: #172554;
+  
+  /* تدرجات الرملي الفاتح */
+  --codelaunch-sand-50: #fefefe;
+  --codelaunch-sand-100: #fefefe;
+  --codelaunch-sand-200: #fefcf3;
+  --codelaunch-sand-300: #fef7e6;
+  --codelaunch-sand-400: #fef1d3;
+  --codelaunch-sand-500: #F5F5DC; /* الأساسي */
+  --codelaunch-sand-600: #d4b896;
+  --codelaunch-sand-700: #b5956a;
+  --codelaunch-sand-800: #967749;
+  --codelaunch-sand-900: #7a5f3a;
+
+  /* ألوان الحالة */
+  --codelaunch-success: var(--codelaunch-mint-500);
+  --codelaunch-success-bg: var(--codelaunch-mint-50);
+  --codelaunch-success-border: var(--codelaunch-mint-200);
+  
+  --codelaunch-info: var(--codelaunch-navy-600);
+  --codelaunch-info-bg: var(--codelaunch-navy-50);
+  --codelaunch-info-border: var(--codelaunch-navy-200);
+  
+  --codelaunch-warning: #f59e0b;
+  --codelaunch-warning-bg: #fffbeb;
+  --codelaunch-warning-border: #fed7aa;
+  
+  --codelaunch-error: #ef4444;
+  --codelaunch-error-bg: #fef2f2;
+  --codelaunch-error-border: #fecaca;
+}
+
+/* ===== LIGHT THEME ===== */
+:root {
+  /* الخلفيات */
+  --codelaunch-elements-background-depth-0: var(--codelaunch-sand-50);
+  --codelaunch-elements-background-depth-1: #ffffff;
+  --codelaunch-elements-background-depth-2: var(--codelaunch-sand-100);
+  --codelaunch-elements-background-depth-3: var(--codelaunch-sand-200);
+  --codelaunch-elements-background-depth-4: var(--codelaunch-sand-300);
+  
+  /* النصوص */
+  --codelaunch-elements-textPrimary: var(--codelaunch-navy-900);
+  --codelaunch-elements-textSecondary: var(--codelaunch-navy-700);
+  --codelaunch-elements-textTertiary: var(--codelaunch-navy-500);
+  --codelaunch-elements-textQuaternary: var(--codelaunch-navy-400);
+  
+  /* الحدود */
+  --codelaunch-elements-borderColor: var(--codelaunch-sand-300);
+  --codelaunch-elements-borderColorActive: var(--codelaunch-mint-400);
+  --codelaunch-elements-borderColorHover: var(--codelaunch-navy-300);
+  
+  /* الأزرار الأساسية */
+  --codelaunch-elements-button-primary-background: linear-gradient(135deg, var(--codelaunch-mint-500) 0%, var(--codelaunch-mint-600) 100%);
+  --codelaunch-elements-button-primary-backgroundHover: linear-gradient(135deg, var(--codelaunch-mint-600) 0%, var(--codelaunch-mint-700) 100%);
+  --codelaunch-elements-button-primary-text: var(--codelaunch-navy-900);
+  
+  --codelaunch-elements-button-secondary-background: var(--codelaunch-navy-600);
+  --codelaunch-elements-button-secondary-backgroundHover: var(--codelaunch-navy-700);
+  --codelaunch-elements-button-secondary-text: white;
+  
+  /* شريط العناوين */
+  --codelaunch-elements-header-background: linear-gradient(90deg, var(--codelaunch-navy-800) 0%, var(--codelaunch-navy-900) 100%);
+  --codelaunch-elements-header-text: white;
+  
+  /* الشريط الجانبي */
+  
+  /* المحرر */
+  --codelaunch-elements-editor-background: #ffffff;
+  --codelaunch-elements-editor-border: var(--codelaunch-sand-300);
+  
+  /* المعاينة */
+  --codelaunch-elements-preview-background: var(--codelaunch-sand-50);
+  --codelaunch-elements-preview-addressBar-background: white;
+  --codelaunch-elements-preview-addressBar-backgroundHover: var(--codelaunch-sand-100);
+  --codelaunch-elements-preview-addressBar-backgroundActive: var(--codelaunch-mint-50);
+  --codelaunch-elements-preview-addressBar-text: var(--codelaunch-navy-700);
+  --codelaunch-elements-preview-addressBar-textActive: var(--codelaunch-navy-900);
+  
+  /* العناصر التفاعلية */
+  --codelaunch-elements-item-contentDefault: var(--codelaunch-navy-600);
+  --codelaunch-elements-item-contentActive: var(--codelaunch-mint-600);
+  --codelaunch-elements-item-contentAccent: var(--codelaunch-mint-500);
+  --codelaunch-elements-item-contentDanger: var(--codelaunch-error);
+  
+  /* الظلال والتأثيرات */
+  --codelaunch-elements-shadow-sm: 0 1px 2px 0 rgba(30, 58, 138, 0.05);
+  --codelaunch-elements-shadow-md: 0 4px 6px -1px rgba(30, 58, 138, 0.1), 0 2px 4px -1px rgba(30, 58, 138, 0.06);
+  --codelaunch-elements-shadow-lg: 0 10px 15px -3px rgba(30, 58, 138, 0.1), 0 4px 6px -2px rgba(30, 58, 138, 0.05);
+  --codelaunch-elements-shadow-xl: 0 20px 25px -5px rgba(30, 58, 138, 0.1), 0 10px 10px -5px rgba(30, 58, 138, 0.04);
+}
+
+/* ===== DARK THEME ===== */
+[data-theme='dark'] {
+  /* الخلفيات - النمط الداكن */
+  --codelaunch-elements-background-depth-0: #0a0f1c;
+  --codelaunch-elements-background-depth-1: #111827;
+  --codelaunch-elements-background-depth-2: #1f2937;
+  --codelaunch-elements-background-depth-3: #374151;
+  --codelaunch-elements-background-depth-4: #4b5563;
+  
+  /* النصوص - النمط الداكن */
+  --codelaunch-elements-textPrimary: var(--codelaunch-sand-100);
+  --codelaunch-elements-textSecondary: var(--codelaunch-sand-300);
+  --codelaunch-elements-textTertiary: var(--codelaunch-sand-400);
+  --codelaunch-elements-textQuaternary: var(--codelaunch-sand-500);
+  
+  /* الحدود - النمط الداكن */
+  --codelaunch-elements-borderColor: #374151;
+  --codelaunch-elements-borderColorActive: var(--codelaunch-mint-400);
+  --codelaunch-elements-borderColorHover: var(--codelaunch-navy-400);
+  
+  /* الأزرار - النمط الداكن */
+  --codelaunch-elements-button-primary-background: linear-gradient(135deg, var(--codelaunch-mint-400) 0%, var(--codelaunch-mint-500) 100%);
+  --codelaunch-elements-button-primary-backgroundHover: linear-gradient(135deg, var(--codelaunch-mint-500) 0%, var(--codelaunch-mint-600) 100%);
+  --codelaunch-elements-button-primary-text: var(--codelaunch-navy-900);
+  
+  /* شريط العناوين - النمط الداكن */
+  --codelaunch-elements-header-background: linear-gradient(90deg, var(--codelaunch-navy-950) 0%, #0a0f1c 100%);
+  
+  /* الشريط الجانبي - النمط الداكن */
+  
+  /* المحرر - النمط الداكن */
+  --codelaunch-elements-editor-background: #1f2937;
+  
+  /* المعاينة - النمط الداكن */
+  --codelaunch-elements-preview-background: #111827;
+  --codelaunch-elements-preview-addressBar-background: #1f2937;
+  --codelaunch-elements-preview-addressBar-backgroundHover: #374151;
+  --codelaunch-elements-preview-addressBar-backgroundActive: rgba(152, 255, 152, 0.1);
+}
+
+/* ===== COMPONENT SPECIFIC STYLES ===== */
+
+/* الأزرار المحسنة */
+.codelaunch-button-primary {
+  background: var(--codelaunch-elements-button-primary-background);
+  color: var(--codelaunch-elements-button-primary-text);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 12px 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--codelaunch-elements-shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.codelaunch-button-primary:hover {
+  background: var(--codelaunch-elements-button-primary-backgroundHover);
+  transform: translateY(-2px);
+  box-shadow: var(--codelaunch-elements-shadow-lg);
+}
+
+.codelaunch-button-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--codelaunch-elements-shadow-sm);
+}
+
+.codelaunch-button-secondary {
+  background: var(--codelaunch-elements-button-secondary-background);
+  color: var(--codelaunch-elements-button-secondary-text);
+  border: 2px solid var(--codelaunch-navy-600);
+  border-radius: 12px;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.codelaunch-button-secondary:hover {
+  background: var(--codelaunch-elements-button-secondary-backgroundHover);
+  border-color: var(--codelaunch-mint-400);
+  transform: translateY(-1px);
+  box-shadow: var(--codelaunch-elements-shadow-md);
+}
+
+/* البطاقات المحسنة */
+.codelaunch-card {
+  background: var(--codelaunch-elements-background-depth-1);
+  border: 1px solid var(--codelaunch-elements-borderColor);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  box-shadow: var(--codelaunch-elements-shadow-sm);
+}
+
+.codelaunch-card:hover {
+  border-color: var(--codelaunch-elements-borderColorHover);
+  transform: translateY(-4px);
+  box-shadow: var(--codelaunch-elements-shadow-xl);
+}
+
+.codelaunch-card-header {
+  border-bottom: 1px solid var(--codelaunch-elements-borderColor);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+/* شرائط التقدم المحسنة */
+.codelaunch-progress {
+  background: var(--codelaunch-sand-200);
+  border-radius: 12px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.codelaunch-progress-bar {
+  background: linear-gradient(90deg, var(--codelaunch-mint-500) 0%, var(--codelaunch-navy-600) 100%);
+  height: 100%;
+  border-radius: 12px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.codelaunch-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* المدخلات المحسنة */
+.codelaunch-input {
+  background: var(--codelaunch-elements-background-depth-1);
+  border: 2px solid var(--codelaunch-elements-borderColor);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--codelaunch-elements-textPrimary);
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.codelaunch-input:focus {
+  outline: none;
+  border-color: var(--codelaunch-mint-400);
+  box-shadow: 0 0 0 3px rgba(152, 255, 152, 0.1);
+  background: var(--codelaunch-elements-background-depth-0);
+}
+
+/* التبويبات المحسنة */
+.codelaunch-tabs {
+  border-bottom: 1px solid var(--codelaunch-elements-borderColor);
+  background: var(--codelaunch-elements-background-depth-1);
+}
+
+.codelaunch-tab {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: var(--codelaunch-elements-textSecondary);
+  font-weight: 500;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.codelaunch-tab:hover {
+  background: var(--codelaunch-elements-background-depth-2);
+  color: var(--codelaunch-elements-textPrimary);
+}
+
+.codelaunch-tab.active {
+  background: var(--codelaunch-mint-50);
+  color: var(--codelaunch-navy-800);
+  border-bottom: 3px solid var(--codelaunch-mint-500);
+}
+
+/* الإشعارات المحسنة */
+.codelaunch-notification {
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border-left: 4px solid;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.codelaunch-notification.success {
+  background: var(--codelaunch-success-bg);
+  border-left-color: var(--codelaunch-success);
+  color: var(--codelaunch-navy-800);
+}
+
+.codelaunch-notification.info {
+  background: var(--codelaunch-info-bg);
+  border-left-color: var(--codelaunch-info);
+  color: var(--codelaunch-navy-800);
+}
+
+.codelaunch-notification.warning {
+  background: var(--codelaunch-warning-bg);
+  border-left-color: var(--codelaunch-warning);
+  color: var(--codelaunch-navy-800);
+}
+
+.codelaunch-notification.error {
+  background: var(--codelaunch-error-bg);
+  border-left-color: var(--codelaunch-error);
+  color: var(--codelaunch-navy-800);
+}
+
+/* التأثيرات البصرية */
+.codelaunch-glassmorphism {
+  backdrop-filter: blur(16px);
+  background: rgba(245, 245, 220, 0.8);
+  border: 1px solid rgba(152, 255, 152, 0.2);
+}
+
+[data-theme='dark'] .codelaunch-glassmorphism {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(152, 255, 152, 0.1);
+}
+
+.codelaunch-gradient-text {
+  background: linear-gradient(135deg, var(--codelaunch-mint-500) 0%, var(--codelaunch-navy-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* الحركات والانتقالات */
+.codelaunch-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.codelaunch-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.codelaunch-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* تحسينات الاستجابة */
+@media (max-width: 768px) {
+  .codelaunch-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .codelaunch-button-primary {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* تحسينات إمكانية الوصول */
+.codelaunch-focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(152, 255, 152, 0.3);
+}
+
+/* وضع التباين العالي */
+@media (prefers-contrast: high) {
+  :root {
+    --codelaunch-elements-borderColor: var(--codelaunch-navy-800);
+    --codelaunch-elements-textSecondary: var(--codelaunch-navy-800);
+  }
+}
+
+/* تفضيلات الحركة المخفضة */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

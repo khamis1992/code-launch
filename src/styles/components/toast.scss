@@ -1,0 +1,17 @@
+.Toastify__toast {
+  --at-apply: shadow-md;
+
+  background-color: var(--codelaunch-elements-bg-depth-2);
+  color: var(--codelaunch-elements-textPrimary);
+  border: 1px solid var(--codelaunch-elements-borderColor);
+}
+
+.Toastify__close-button {
+  color: var(--codelaunch-elements-item-contentDefault);
+  opacity: 1;
+  transition: none;
+
+  &:hover {
+    color: var(--codelaunch-elements-item-contentActive);
+  }
+}
