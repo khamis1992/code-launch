@@ -32,14 +32,14 @@ theme:
   # logo: assets/logo.png
   # favicon: assets/logo.png
 repo_name: CodeLaunch.ai
-repo_url: https://github.com/stackblitz-labs/CodeLaunch.ai
+repo_url: https://github.com/khamis1992/CodeLaunch.ai
 edit_uri: ''
 
 extra:
   generator: false
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/stackblitz-labs/CodeLaunch.ai
+      link: https://github.com/khamis1992/CodeLaunch.ai
       name: CodeLaunch.ai
     - icon: fontawesome/brands/discourse
       link: https://thinktank.ottomator.ai/

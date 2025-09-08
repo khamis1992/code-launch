@@ -6,8 +6,8 @@ body:
       value: |
         Thank you for reporting an issue :pray:.
 
-        This issue tracker is for bugs and issues found with [Bolt.diy](https://bolt.diy).
-        If you experience issues related to WebContainer, please file an issue in the official [StackBlitz WebContainer repo](https://github.com/stackblitz/webcontainer-core).
+        This issue tracker is for bugs and issues found with [CodeLaunch.ai](https://codelaunch.ai).
+        If you experience issues related to WebContainer, please file an issue in the official [CodeLaunch WebContainer repo](https://github.com/stackblitz/webcontainer-core).
 
         The more information you fill in, the better we can help you.
   - type: textarea
