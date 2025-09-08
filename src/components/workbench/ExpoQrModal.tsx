@@ -20,7 +20,7 @@ export const ExpoQrModal: React.FC<ExpoQrModalProps> = ({ open, onClose }) => {
         onClose={onClose}
       >
         <div className="border !border-codelaunch-elements-borderColor flex flex-col gap-5 justify-center items-center p-6 bg-codelaunch-elements-background-depth-2 rounded-md">
-          <div className="i-codelaunch:expo-brand h-10 w-full invert dark:invert-none"></div>
+          <div className="i-bolt:expo-brand h-10 w-full invert dark:invert-none"></div>
           <DialogTitle className="text-codelaunch-elements-textTertiary text-lg font-semibold leading-6">
             Preview on your own mobile device
           </DialogTitle>
