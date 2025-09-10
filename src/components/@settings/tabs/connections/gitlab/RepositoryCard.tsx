@@ -18,7 +18,7 @@ export function RepositoryCard({ repo, onClone }: RepositoryCardProps) {
       <div className="space-y-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
-            <div className="i-ph:git-repository w-4 h-4 text-codelaunch-elements-icon-info" />
+            <div className="i-ph:folder w-4 h-4 text-codelaunch-elements-icon-info" />
             <h5 className="text-sm font-medium text-codelaunch-elements-textPrimary group-hover:text-codelaunch-elements-item-contentAccent transition-colors">
               {repo.name}
             </h5>

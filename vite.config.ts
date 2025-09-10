@@ -4,12 +4,7 @@ import { defineConfig, type ViteDevServer } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { optimizeCssModules } from 'vite-plugin-optimize-css-modules';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import * as dotenv from 'dotenv';
-
-// Load environment variables from multiple files
-dotenv.config({ path: '.env.local' });
-dotenv.config({ path: '.env' });
-dotenv.config();
+// Environment variables are loaded automatically by Vite
 
 export default defineConfig((config) => {
   return {
@@ -50,6 +45,7 @@ export default defineConfig((config) => {
           v3_relativeSplatPath: true,
           v3_throwAbortReason: true,
           v3_lazyRouteDiscovery: true,
+          v3_singleFetch: true,
         },
       }),
       UnoCSS(),

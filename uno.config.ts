@@ -102,7 +102,7 @@ export default defineConfig({
   shortcuts: {
     'codelaunch-ease-cubic-bezier': 'ease-[cubic-bezier(0.4,0,0.2,1)]',
     'transition-theme': 'transition-[background-color,border-color,color] duration-150 codelaunch-ease-cubic-bezier',
-    kdb: 'bg-codelaunch-elements-code-background text-codelaunch-elements-code-text py-1 px-1.5 rounded-md',
+    kdb: 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-1 px-1.5 rounded-md',
     'max-w-chat': 'max-w-[var(--chat-max-width)]',
   },
   rules: [

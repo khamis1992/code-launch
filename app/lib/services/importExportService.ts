@@ -257,16 +257,8 @@ export class ImportExportService {
       Anthropic: '',
       OpenAI: '',
       Google: '',
-      Groq: '',
-      HuggingFace: '',
-      OpenRouter: '',
       Deepseek: '',
-      Mistral: '',
       OpenAILike: '',
-      Together: '',
-      xAI: '',
-      Perplexity: '',
-      Cohere: '',
       AzureOpenAI: '',
     };
 

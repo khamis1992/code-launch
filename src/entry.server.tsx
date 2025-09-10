@@ -26,37 +26,34 @@ export default async function handleRequest(
   const body = new ReadableStream({
     start(controller) {
       const head = renderHeadToString({ request, remixContext, Head });
+      const htmlStart = `<!DOCTYPE html><html lang="en" data-theme="${themeStore.value}"><head>${head}</head><body><div id="root" class="w-full h-full">`;
+      const htmlEnd = '</div></body></html>';
 
-      controller.enqueue(
-        new Uint8Array(
-          new TextEncoder().encode(
-            `<!DOCTYPE html><html lang="en" data-theme="${themeStore.value}"><head>${head}</head><body><div id="root" class="w-full h-full">`,
-          ),
-        ),
-      );
+      // Enqueue the HTML start
+      controller.enqueue(new TextEncoder().encode(htmlStart));
 
+      // Create a reader for the readable stream
       const reader = readable.getReader();
 
-      function read() {
-        reader
-          .read()
-          .then(({ done, value }) => {
-            if (done) {
-              controller.enqueue(new Uint8Array(new TextEncoder().encode('</div></body></html>')));
-              controller.close();
+      function pump() {
+        return reader.read().then(({ done, value }) => {
+          if (done) {
+            // Enqueue the HTML end and close
+            controller.enqueue(new TextEncoder().encode(htmlEnd));
+            controller.close();
+            return;
+          }
 
-              return;
-            }
-
-            controller.enqueue(value);
-            read();
-          })
-          .catch((error) => {
-            controller.error(error);
-            readable.cancel();
-          });
+          // Enqueue the chunk and continue
+          controller.enqueue(value);
+          return pump();
+        });
       }
-      read();
+
+      return pump().catch((error) => {
+        controller.error(error);
+        reader.releaseLock();
+      });
     },
 
     cancel() {

@@ -68,7 +68,7 @@ export default function GitHubConnection({ onCloneRepository }: GitHubConnection
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-codelaunch-elements-background-depth-1 border border-codelaunch-elements-borderColor">
-            <div className="i-ph:git-repository text-codelaunch-elements-icon-primary w-5 h-5" />
+            <div className="i-ph:folder text-codelaunch-elements-icon-primary w-5 h-5" />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-codelaunch-elements-textPrimary">GitHub</h3>
@@ -243,7 +243,7 @@ export default function GitHubConnection({ onCloneRepository }: GitHubConnection
           <CollapsibleTrigger asChild>
             <div className="flex items-center justify-between p-4 rounded-lg bg-codelaunch-elements-background-depth-1 border border-codelaunch-elements-borderColor hover:border-codelaunch-elements-borderColorActive transition-all duration-200 cursor-pointer">
               <div className="flex items-center gap-2">
-                <div className="i-ph:git-repository w-4 h-4 text-codelaunch-elements-item-contentAccent" />
+                <div className="i-ph:folder w-4 h-4 text-codelaunch-elements-item-contentAccent" />
                 <span className="text-sm font-medium text-codelaunch-elements-textPrimary">
                   Repositories ({connection.stats.repos.length})
                 </span>

@@ -250,7 +250,7 @@ export default function GitLabConnection({ onCloneRepository }: GitLabConnection
                     onClick={() => window.open(`${gitlabUrlAtom.get()}/dashboard`, '_blank', 'noopener,noreferrer')}
                     className="flex items-center gap-2 hover:bg-codelaunch-elements-item-backgroundActive/10 hover:text-codelaunch-elements-textPrimary dark:hover:text-codelaunch-elements-textPrimary transition-colors"
                   >
-                    <div className="i-ph:layout-dashboard w-4 h-4" />
+                    <div className="i-ph:grid-four w-4 h-4" />
                     Dashboard
                   </Button>
                   <Button
