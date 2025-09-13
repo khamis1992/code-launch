@@ -22,7 +22,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./src/*", "./app/*"]
     },
     // vite takes care of building everything, not tsc
     "noEmit": true
